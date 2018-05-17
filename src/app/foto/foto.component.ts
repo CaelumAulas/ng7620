@@ -2,7 +2,13 @@ import { Component, Input } from "@angular/core";
 
 @Component({
     selector: 'foto',
-    template: `<img [src]="url" alt="{{titulo}}" class="img-fluid d-block mx-auto">`
+    template: `<img [src]="url" alt="{{titulo}}" class="card-img-top">`,
+    styles: [`
+        .card-img-top {
+            height: 240px;
+            object-fit: cover;
+        }
+    `]
 })
 export class FotoComponent {
 //one-way data binding
@@ -11,5 +17,6 @@ export class FotoComponent {
 
     @Input() titulo = ''
     @Input() url = ''
+    descricao = ''
 
 }

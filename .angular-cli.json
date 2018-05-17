@@ -56,12 +56,12 @@
   },
   "defaults": {
     "styleExt": "css",
-    "class": {
-      "spec": false
-    },
     "component": {
       "inlineStyle": true,
-      "inlineTemplate": true,
+      "inlineTemplate": false,
+      "spec": false
+    },
+    "class": {
       "spec": false
     },
     "directive": {

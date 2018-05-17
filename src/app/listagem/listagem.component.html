@@ -1,0 +1,18 @@
+<header class="jumbotron">
+  <h1 class="text-center">CaelumPic</h1>
+</header>
+<section class="container">
+
+  <div class="row">
+    <form class="col-md-12">
+      <a routerLink="/cadastro" class="btn btn-primary">Nova Foto</a>
+    </form>
+  </div>
+
+  <div class="row">
+    <painel *ngFor="let foto of listaFotos" titulo="{{foto.titulo}}" class="col-md-4">
+      <foto url="{{foto.url}}" titulo="{{foto.titulo}}"></foto>
+    </painel>
+  </div>
+
+</section>
