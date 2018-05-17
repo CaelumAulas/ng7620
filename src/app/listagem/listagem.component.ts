@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient } from "@angular/common/http";
+import { FotoService } from '../servicos/foto.service';
 
 @Component({
   selector: 'app-listagem',
@@ -11,14 +11,13 @@ export class ListagemComponent implements OnInit {
   listaFotos
 
   //injecao de dependencia fazendo inferencia de tipo
-  constructor(conexaoApi: HttpClient) {
-
-    conexaoApi.get('http://localhost:3000/v1/fotos')
-      .subscribe(
-        resposta => { //arrow function
-          this.listaFotos = resposta
-        }
-      )
+  constructor(private servico: FotoService) {
+    servico.listar()
+          .subscribe(
+            resposta => { //arrow function
+              this.listaFotos = resposta
+            }
+          )
   }
 
   ngOnInit() {
