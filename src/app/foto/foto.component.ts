@@ -1,4 +1,5 @@
 import { Component, Input } from "@angular/core";
+import { UrlHandlingStrategy } from "@angular/router";
 
 @Component({
     selector: 'foto',
@@ -18,5 +19,6 @@ export class FotoComponent {
     @Input() titulo = ''
     @Input() url = ''
     descricao = ''
+    _id = ''
 
 }
