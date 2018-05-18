@@ -4,6 +4,7 @@
   </h1>
 </header>
 <section class="container">
+  <app-mensagem *ngIf="mensagem.texto" [tipo]="mensagem.tipo" [texto]="mensagem.texto"></app-mensagem>
   <div class="row">
     <form class="col-md-6" (ngSubmit)="salvar()">
       <div class="form-group">

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FotoComponent } from "../foto/foto.component";
 import { FotoService } from '../servicos/foto.service';
 import { ActivatedRoute, Router } from "@angular/router";
+import { MensagemComponent } from '../mensagem/mensagem.component';
 
 @Component({
   selector: 'app-cadastro',
@@ -11,6 +12,7 @@ import { ActivatedRoute, Router } from "@angular/router";
 export class CadastroComponent implements OnInit {
 
   foto = new FotoComponent()
+  mensagem = new MensagemComponent()
 
   constructor(private servico: FotoService
               , private rotaAtiva: ActivatedRoute
@@ -37,19 +39,31 @@ export class CadastroComponent implements OnInit {
       this.servico.alterar(this.foto)
                   .subscribe(
                     () => {
-                      console.log(`Foto ${this.foto.titulo} alterada com sucessoo!`);
-                      this.roteador.navigate([''])
+                      this.mensagem.texto = `Foto ${this.foto.titulo} alterada com sucessoo!`
+                      this.mensagem.tipo = "success"
+
+                      console.log(this.roteador);
+                      
+
+                      setTimeout(() => {
+                        this.roteador.navigate([''])
+                      }, 3000);
+                      
                     }
                   )
     }
     else {
       this.servico.cadastrar(this.foto)
                   .subscribe(
-                    () => {
-                      console.log(`Foto ${this.foto.titulo} cadastada com sucessoo!`);
+                    mensagemApi => {
+                      this.mensagem = mensagemApi
                       this.foto = new FotoComponent()
                     }
-                    ,erro => console.log(erro)
+                    ,mensagemErro => {
+                      this.mensagem = mensagemErro
+                      console.log(mensagemErro);
+                      
+                    }
                   )
     }
   }

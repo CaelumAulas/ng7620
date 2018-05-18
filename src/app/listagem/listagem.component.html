@@ -3,6 +3,8 @@
 </header>
 <section class="container">
 
+  <app-mensagem *ngIf="mensagem.texto" [texto]="mensagem.texto" [tipo]="mensagem.tipo"></app-mensagem>
+
   <div class="row">
     <form class="col-md-12">
       <a routerLink="/cadastro" class="btn btn-primary">Nova Foto</a>

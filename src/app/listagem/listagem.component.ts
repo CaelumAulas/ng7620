@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FotoService } from '../servicos/foto.service';
 import { FotoComponent } from '../foto/foto.component';
+import { MensagemComponent } from '../mensagem/mensagem.component';
 
 @Component({
   selector: 'app-listagem',
@@ -10,6 +11,8 @@ import { FotoComponent } from '../foto/foto.component';
 export class ListagemComponent implements OnInit {
 
   listaFotos:FotoComponent[] = []
+  mensagem = new MensagemComponent()
+
 
   //injecao de dependencia fazendo inferencia de tipo
   constructor(private servico: FotoService) {
@@ -27,8 +30,13 @@ export class ListagemComponent implements OnInit {
 
     this.servico.deletar(foto)
       .subscribe(
-        resposta => {
-          console.log(`Foto ${foto.titulo} apagada com sucesso`);
+        mensagemApi => {
+          
+          this.mensagem = mensagemApi
+
+          setTimeout(() => {
+            this.mensagem = new MensagemComponent()  
+          }, 3000);
 
           //Percorrer listaFotos
           this.listaFotos = this
