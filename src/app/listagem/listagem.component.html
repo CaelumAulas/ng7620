@@ -5,14 +5,21 @@
 
   <app-mensagem *ngIf="mensagem.texto" [texto]="mensagem.texto" [tipo]="mensagem.tipo"></app-mensagem>
 
-  <div class="row">
-    <form class="col-md-12">
-      <a routerLink="/cadastro" class="btn btn-primary">Nova Foto</a>
-    </form>
+  <div class="row mb-4">
+    <div class="col-md-12">
+      <form class="input-group">
+        <span class="input-group-prepend">
+          <a routerLink="/cadastro" class="btn btn-primary">Nova Foto</a>
+        </span>
+        <input (keyup)="true" #inputBusca type="search" class="form-control">
+      </form>
+    </div>
   </div>
+  
 
   <div class="row">
-    <painel *ngFor="let foto of listaFotos" titulo="{{foto.titulo}}" class="col-md-4">
+    <painel *ngFor="let foto of listaFotos | filtroPorTitulo:inputBusca.value" titulo="{{foto.titulo}}" class="col-md-4">
+
       <a [routerLink]="['/cadastro', foto._id]" data-foto>
         <foto url="{{foto.url}}" titulo="{{foto.titulo}}"></foto>
       </a>
