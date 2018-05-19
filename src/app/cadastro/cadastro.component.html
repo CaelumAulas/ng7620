@@ -6,27 +6,29 @@
 <section class="container">
   <app-mensagem *ngIf="mensagem.texto" [tipo]="mensagem.tipo" [texto]="mensagem.texto"></app-mensagem>
   <div class="row">
-    <form class="col-md-6" (ngSubmit)="salvar()">
+    <form [formGroup]="formCadastro" class="col-md-6" (ngSubmit)="salvar()">
       <div class="form-group">
-        <h2>{{foto.titulo}}</h2>
         <label>Titulo</label>
-        <input [(ngModel)]="foto.titulo" name="titulo" type="text" class="form-control">
+        <input formControlName="titulo" required [(ngModel)]="foto.titulo" name="titulo" type="text" class="form-control">
+        <app-mensagem *ngIf="formCadastro.controls.titulo.errors?.required && formCadastro.controls.titulo.touched" texto="Titulo obrigatorio" tipo="danger"></app-mensagem>
+        <app-mensagem *ngIf="formCadastro.controls.titulo.errors?.minlength" texto="Minimo de {{formCadastro.controls.titulo.errors.minlength.requiredLength}} caracteres" tipo="danger"></app-mensagem>
       </div>
       <div class="form-group">
         <label>URL</label>
-        <input [(ngModel)]="foto.url" name="url" type="text" class="form-control">
+        <input formControlName="url" required [(ngModel)]="foto.url" name="url" type="text" class="form-control">
+        <app-mensagem *ngIf="formCadastro.controls.url.invalid && formCadastro.controls.url.touched" texto="URL obrigatória" tipo="danger"></app-mensagem>
       </div>
       <div class="form-group">
         <label>Descrição</label>
-        <textarea [(ngModel)]="foto.descricao" name="descricao" class="form-control"></textarea>
+        <textarea formControlName="descricao" [(ngModel)]="foto.descricao" name="descricao" class="form-control"></textarea>
       </div>
 
       <a routerLink="" class="btn btn-secondary">Voltar</a>
 
-      <button class="btn btn-primary">Cadastrar!</button>
+      <button [disabled]="formCadastro.invalid" class="btn btn-primary">Cadastrar!</button>
     </form>
     <aside class="col-md-4">
-        <painel titulo="{{foto.titulo}}">
+        <painel *ngIf="foto.url" titulo="{{foto.titulo}}">
           <foto data-foto url="{{foto.url}}" titulo="{{foto.titulo}}"></foto>
         </painel>
     </aside>
